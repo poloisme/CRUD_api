@@ -1,0 +1,44 @@
+{
+  "name": "crud_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
+    "dev": "nodemon --inspect src/server.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "pretest": "cross-env NODE_ENV=test npm run migrate:reset",
+    "test-cucumber": "cross-env NODE_ENV=test cucumber-js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ajv": "^8.8.2",
+    "ajv-errors": "^3.0.0",
+    "ajv-formats": "^2.1.1",
+    "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "method-override": "^3.0.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.12.2"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^8.0.0-rc.1",
+    "cross-env": "^7.0.3",
+    "jest": "^27.4.5",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.3.0",
+    "supertest": "^6.1.6"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
+}
