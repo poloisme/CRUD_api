@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const userController = require("../controllers/user.controller");
-const { validateBody, validateParam } = require("../middlewares/validateData");
+const { validateBody } = require("../middlewares/validateData");
 
 //router
 router.route("/").get(userController.getAllUser);

@@ -1,6 +1,6 @@
 const userService = require("../services/user.service");
 
-//[GET] api/users
+//get all user
 const getAllUser = async (req, res, next) => {
   try {
     const response = await userService.getAll();
@@ -10,7 +10,7 @@ const getAllUser = async (req, res, next) => {
   }
 };
 
-//[GET] api/users/:id
+//get a user by id
 const getUser = async (req, res, next) => {
   try {
     const response = await userService.getOne({ id: req.params.id });
@@ -20,7 +20,7 @@ const getUser = async (req, res, next) => {
   }
 };
 
-//[POST] api/users/create
+//create a new user
 const createNewUser = async (req, res, next) => {
   try {
     const response = await userService.createNew(req.body);
@@ -30,7 +30,7 @@ const createNewUser = async (req, res, next) => {
   }
 };
 
-//[PUT] api/users/:id
+//update a user by id
 const updateUser = async (req, res, next) => {
   try {
     const response = await userService.update({ id: req.params.id }, req.body);
@@ -40,7 +40,7 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-//[DELETE] api/users/:id
+//delete a user by id
 const deleteUser = async (req, res, next) => {
   try {
     const response = await userService.deleteOne({ id: req.params.id });
@@ -50,7 +50,7 @@ const deleteUser = async (req, res, next) => {
   }
 };
 
-//[DELETE] api/users/delete-all
+//delete all user
 const deleteAll = async (req, res, next) => {
   try {
     const response = await userService.deleteAll();

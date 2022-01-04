@@ -9,7 +9,8 @@
     "dev": "nodemon --inspect src/server.js",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
     "pretest": "cross-env NODE_ENV=test npm run migrate:reset",
-    "test-cucumber": "cross-env NODE_ENV=test cucumber-js"
+    "test-cucumber": "cross-env NODE_ENV=test cucumber-js",
+    "jest-coverage": "npx jest --coverage"
   },
   "author": "",
   "license": "ISC",
