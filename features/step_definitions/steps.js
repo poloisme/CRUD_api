@@ -1,9 +1,29 @@
-const { Given, When, Then, AfterAll, After } = require("@cucumber/cucumber");
+const { Given, When, Then, Before, After } = require("@cucumber/cucumber");
 const assert = require("assert").strict;
 const request = require("supertest");
 const app = require("../../src/server");
 
-//[POST] create new user
+//Hooks
+After(async function () {
+  await request(app).delete("/api/users/delete-all");
+});
+
+Before({ tags: "@create_user_id_1" }, async function () {
+  const user = {
+    username: "username01",
+    password: "pass12345",
+    email: "email01@gmail.com",
+    status: 1,
+    roles_id: 1,
+  };
+  await request(app).post("/api/users/create").send(user);
+});
+
+Before({ tags: "@clear_data_input" }, async function () {
+  await request(app).delete("/api/users/delete-all");
+});
+
+//create a new user
 Given("A user {}", function (request) {
   this.context["request"] = JSON.parse(request);
 });
@@ -18,7 +38,7 @@ Then("I get response POST request code {int}", async function (code) {
   assert.equal(this.context["response"].statusCode, code);
 });
 
-//[GET] get all user
+//get all user
 When("I send GET request to {}", async function (path) {
   this.context["response"] = await request(app).get(path);
 });
@@ -27,7 +47,7 @@ Then("I get response GET all user request code {int}", async function (code) {
   assert.equal(this.context["response"].statusCode, code);
 });
 
-//[GET] get one user
+//get a user by id
 Given("The user with {int} exist", function (id) {
   this.context["id"] = id;
 });
@@ -42,21 +62,7 @@ Then("I get response GET one user request code {int}", async function (code) {
   assert.equal(this.context["response"].statusCode, code);
 });
 
-// Given("The other user with {int} exist", function (id) {
-//   this.context["id"] = id;
-// });
-
-// When("I send GET one other user request to {}", async function (path) {
-//   this.context["response"] = await request(app).get(
-//     `${path}/${this.context["id"]}`
-//   );
-// });
-
-// Then("I get receive {}", async function (response) {
-//   assert.deepEqual(this.context["response"].body.data, JSON.parse(response));
-// });
-
-//[PUT] update one user
+//update a user by id
 Given("The user update with {int} exist", function (id) {
   this.context["id"] = id;
 });
@@ -75,7 +81,7 @@ Then("I get response PUT request code {int}", async function (code) {
   assert.equal(this.context["response"].statusCode, code);
 });
 
-//[DELETE] delete one user
+//delete a user by id
 Given("The user delete with {int} exist", function (id) {
   this.context["id"] = id;
 });
@@ -90,7 +96,7 @@ Then("I get response DELETE request code {int}", async function (code) {
   assert.equal(this.context["response"].statusCode, code);
 });
 
-//[DELETE] delete all user
+//delete all user
 When("I send DELETE all request to {}", async function (path) {
   this.context["response"] = await request(app).delete(path);
 });

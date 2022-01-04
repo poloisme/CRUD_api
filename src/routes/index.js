@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const userRoute = require("./user.route");
+const userRoute = require("./user");
 const errorHandle = require("../middlewares/errorHandle");
 
 const initRoute = (app) => {
