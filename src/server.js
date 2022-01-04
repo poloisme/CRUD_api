@@ -20,10 +20,7 @@ app.use(methodOverride("_method"));
 
 //init route
 initRoute(app);
-//handle error 404
-app.use("*", (req, res) => {
-  res.status(404).json("Not found!");
-});
+
 //connect db
 connectDB();
 
